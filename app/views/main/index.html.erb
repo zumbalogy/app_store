@@ -1,0 +1,38 @@
+<title>App Star Finder</title>
+
+<form id='form'>
+    <input id='input' type='text' placeholder='app search'/>
+</form>
+
+<table id='results'>    
+</table>
+
+<script type="text/javascript">
+    $('#form').on('submit', function(e){
+        event.preventDefault();
+        $.ajax({
+            url: "https://itunes.apple.com/search?term=" + $('#input').val() + "&country=us&entity=software",
+            type: 'get',
+            dataType: 'jsonp',
+            success: function(data){
+                $('table').html('')
+                results = data.results
+                for (var i = 0; i < results.length; i++){
+                    tr = $('<tr>')
+                    tr.append("<td>" + results[i].averageUserRating + '</td>')
+                    tr.append("<td>" + results[i].trackName + '</td>')
+                    $('#results').append(tr)
+                }
+            }
+        })
+    })
+</script>
+
+<style type="text/css">
+    table {
+        border: 1px solid grey;
+    }
+    td {
+        border: 1px solid grey;
+    }
+</style>
