@@ -6,7 +6,7 @@
 </table>
 
 <script type="text/javascript">
-    $('#form').on('submit', function(e){
+    $('#form').on('submit', function(event){
         event.preventDefault();
         $.ajax({
             url: "https://itunes.apple.com/search?term=" + $('#input').val() + "&country=us&entity=software",
