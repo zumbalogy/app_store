@@ -1,3 +1,8 @@
+body {
+    font-family: sans-serif;
+    background-color: #888;
+}
+
 table {
     border: 1px solid #aaa;
     margin-top: 2em;
