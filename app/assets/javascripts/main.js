@@ -9,35 +9,39 @@ function init_apple(data){
     render_apple_array()
 }
 
-function render_apple_array(){
-    $('#results').html(apple_table_head)
-    for (var i = 0; i < apple_array.length; i++){
-        tr = $('<tr>')
-        tr.append("<td>" + apple_array[i].averageUserRating + '</td>')
-        tr.append("<td>" + apple_array[i].trackName + '</td>')
-        tr.append("<td>" + apple_array[i].artistName + '</td>')
-        tr.append("<td>" + apple_array[i].userRatingCount + '</td>')
-        tr.append("<td>" + apple_array[i].price + '</td>')
-        $('#results').append(tr)
-    }
-}
-
 function init_android(data){
     android_array = data.results
     render_android_array()
 }
 
+function render_apple_array(){
+    $('#results').html(apple_table_head)
+    for (var i = 0; i < apple_array.length; i++){
+        var app = apple_array[i]
+        tr = $('<tr>')
+        tr.attr('id', "" + app.trackId)
+        tr.append("<td>" + app.averageUserRating + '</td>')
+        tr.append("<td>" + app.trackName + '</td>')
+        tr.append("<td>" + app.artistName + '</td>')
+        tr.append("<td>" + app.userRatingCount + '</td>')
+        tr.append("<td>" + app.price + '</td>')
+        $('#results').append(tr)
+    }
+}
+
 function render_android_array(){
     $('#android-results').html(android_table_head)
     for (var i = 0; i < android_array.length; i++){
-        var stars = Math.round(android_array[i].rating * 1000) / 1000
+        var app = android_array[i]
+        var stars = Math.round(app.rating * 1000) / 1000
         tr = $('<tr>')
+        tr.attr('id', app.package_name)
         tr.append("<td>" + stars + '</td>')
-        tr.append("<td>" + android_array[i].title + '</td>')
-        tr.append("<td>" + android_array[i].developer + '</td>')
-        tr.append("<td>" + android_array[i].number_ratings + '</td>')
-        tr.append("<td>" + android_array[i].price_numeric + '</td>')
-        tr.append("<td>" + android_array[i].downloads + '</td>')
+        tr.append("<td>" + app.title + '</td>')
+        tr.append("<td>" + app.developer + '</td>')
+        tr.append("<td>" + app.number_ratings + '</td>')
+        tr.append("<td>" + app.price_numeric + '</td>')
+        tr.append("<td>" + app.downloads + '</td>')
         $('#android-results').append(tr)
     }
 }
