@@ -59,11 +59,12 @@ function get_apple_reviews(){
 }
 
 function get_android_reviews(){
-    for (var i = 0; i < apple_array.length; i++){
-        app = apple_array[i]
+    for (var i = 0; i < android_array.length; i++){
+        app = android_array[i]
+        console.log(app.package_name)
         $.ajax({
             url: "/android_review/" + app.package_name
-        }))
+        })
     }
 }
 
