@@ -46,6 +46,35 @@ function render_android_array(){
     }
 }
 
+var apple_reviews = []
+var android_reviews = []
+
+function get_apple_reviews(){
+    for (var i = 0; i < apple_array.length; i++){
+        app = apple_array[i]
+        apple_reviews.push($.ajax({
+            url: "https://itunes.apple.com/rss/customerreviews/id=" + app.trackId + "/json"
+        }))
+    }
+}
+
+function get_android_reviews(){
+    for (var i = 0; i < apple_array.length; i++){
+        app = apple_array[i]
+        $.ajax({
+            url: "/android_review/" + app.package_name
+        }))
+    }
+}
+
+function apple_reviews_clean(){
+    var save = []
+    for (var i = 0; i < apple_reviews.length; i++){
+        save.push(JSON.parse(apple_reviews[i].responseText).feed.entry)
+    }
+    apple_reviews = save
+}
+
 function apple_ajax(input){
     $.ajax({
         url: "https://itunes.apple.com/search?term=" + input + "&country=us&entity=software",
@@ -73,4 +102,10 @@ $('#form').on('submit', function(event){
     var input = $('#input').val()
     apple_ajax(input)
     android_ajax(input)
+    setTimeout(function(){
+        get_apple_reviews()
+    }, 500)
+    setTimeout(function(){
+        apple_reviews_clean()
+    }, 1500)
 })
