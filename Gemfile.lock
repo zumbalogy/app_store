@@ -120,6 +120,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   market_bot
+  nokogiri
   pg
   pry
   pry-nav
