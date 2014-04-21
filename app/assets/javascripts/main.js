@@ -113,17 +113,21 @@ function android_ajax(input){
 
 
 function render_apple_ul(){
+    $('#apple-reviews').html('')
     for (var i = 0; i < apple_array.length; i++){
         app = apple_array[i]
         ul = $('<ul>')
         ul.append('<li><h4>' + app.trackName + '</h4></li>')
-        ul.append('<li>' + app.trackName + '</li>')
+        ul.append('<li> By: ' + app.artistName + '</li>')
+        ul.append('<li> Stars: ' + app.averageUserRating + '</li>')
+        ul.append('<li> Current Version Stars: ' + app.averageUserRatingForCurrentVersion + '</li>')
+        ul.append('<li> Rating Count: ' + app.userRatingCount + '</li>')
+        ul.append('<li> Current Version Rating Count: ' + app.userRatingCountForCurrentVersion + '</li>')
+        ul.append('<li> Price: ' + app.price + '</li>')
         $('#apple-reviews').append(ul)
         $('#apple-reviews').append('<hr/>')
-
     }
 }
-
 
 $('#form').on('submit', function(event){
     event.preventDefault()
@@ -133,10 +137,10 @@ $('#form').on('submit', function(event){
     setTimeout(function(){
         get_apple_reviews()
         get_android_reviews()
-    }, 2500)
+    }, 3500)
     setTimeout(function(){
         apple_reviews_clean()
         splice_android()
         render_apple_ul()
-    }, 4500)
+    }, 5500)
 })

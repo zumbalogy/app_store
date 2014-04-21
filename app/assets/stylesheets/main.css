@@ -15,3 +15,7 @@ td {
 th {
     border: 1px solid #aaa;
 }
+
+ul {
+    list-style-type: none;
+}
