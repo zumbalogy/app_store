@@ -61,9 +61,11 @@ function get_apple_reviews(){
 function get_android_reviews(){
     for (var i = 0; i < android_array.length; i++){
         app = android_array[i]
-        console.log(app.package_name)
         $.ajax({
-            url: "/android_review/" + app.package_name
+            url: "/android_review/" + app.package_name,
+            success: function(data){
+                android_reviews.push(data)
+            }
         })
     }
 }
@@ -105,8 +107,8 @@ $('#form').on('submit', function(event){
     android_ajax(input)
     setTimeout(function(){
         get_apple_reviews()
-    }, 700)
+    }, 2200)
     setTimeout(function(){
         apple_reviews_clean()
-    }, 1700)
+    }, 3300)
 })
