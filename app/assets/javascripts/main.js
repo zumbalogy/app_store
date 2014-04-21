@@ -137,9 +137,14 @@ function render_apple_ul(){
 
             var version = app.reviews[x]['im:version'].label
             var content = app.reviews[x].content.label
-            word_count[version] = word_count[version] || {}
+            if (word_count[version]){
+                word_count[version]['count'] ++
+            } else {
+                word_count[version] = {'count': 1}
+            }
             this_count = word_count[version]
             word_count[version] = {
+                count: word_count[version]['count'],
                 error: (this_count.error || 0) + (content.search(/error/i) > -1 ? 1 : 0),
                 bug: (this_count.bug || 0) + (content.search(/bug/i) > -1 ? 1 : 0),
                 crash: (this_count.crash || 0) + (content.search(/crash/i) > -1 ? 1 : 0),
@@ -166,12 +171,13 @@ function render_apple_ul(){
         }
 
         var word_table = $('<table>')
-        word_table.append('<th>Version</th><th>Error</th><th>Bug</th><th>Crash</th><th>Broke</th><th>Break</th><th>Fix</th><th>Slow</th><th>Freeze</th><th>Froze</th><th>Uninstall</th><th>Terrible</th><th>Bad</th><th>Worst</th><th>Worse</th><th>Hate</th><th>Suck</th>')
+        word_table.append('<th>Version</th><th>Review Count</th><th>Error</th><th>Bug</th><th>Crash</th><th>Broke</th><th>Break</th><th>Fix</th><th>Slow</th><th>Freeze</th><th>Froze</th><th>Uninstall</th><th>Terrible</th><th>Bad</th><th>Worst</th><th>Worse</th><th>Hate</th><th>Suck</th>')
 
         for (var key in word_count){
             var tr = $('<tr>')
             var obj = word_count[key]
             tr.append('<td>' + key + '</td>')
+            tr.append('<td>' + obj['count'] + '</td>')
             tr.append('<td>' + obj.error + '</td>')
             tr.append('<td>' + obj.bug + '</td>')
             tr.append('<td>' + obj.crash + '</td>')
@@ -212,7 +218,7 @@ $('#form').on('submit', function(event){
     setTimeout(function(){
         get_apple_reviews()
         get_android_reviews()
-    }, 4900)
+    }, 4500)
     setTimeout(function(){
         apple_reviews_clean()
         splice_android()
