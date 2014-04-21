@@ -46,8 +46,6 @@ function render_android_array(){
     }
 }
 
-var android_reviews = []
-
 function get_apple_reviews(){
     for (var i = 0; i < apple_array.length; i++){
         app = apple_array[i]
@@ -57,15 +55,28 @@ function get_apple_reviews(){
     }
 }
 
+var android_reviews = []
+
 function get_android_reviews(){
+    android_reviews = []
     for (var i = 0; i < android_array.length; i++){
-        app = android_array[i]
+        var app = android_array[i]
         $.ajax({
             url: "/android_review/" + app.package_name,
             success: function(data){
                 android_reviews.push(data)
             }
         })
+    }
+}
+
+function splice_android(){
+    for (var x = 0; x < android_reviews.length; x++){
+        for (var y = 0; y < android_array.length; y++){
+            if (android_array[y].package_name == android_reviews[x]['name']){
+                android_array[y]['reviews'] = android_reviews[x].reviews
+            }
+        }
     }
 }
 
@@ -105,8 +116,10 @@ $('#form').on('submit', function(event){
     android_ajax(input)
     setTimeout(function(){
         get_apple_reviews()
-    }, 2200)
+        get_android_reviews()
+    }, 2500)
     setTimeout(function(){
         apple_reviews_clean()
-    }, 3300)
+        splice_android()
+    }, 4500)
 })

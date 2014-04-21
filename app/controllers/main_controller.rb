@@ -18,7 +18,7 @@ class MainController < ApplicationController
             end
         rescue
         end
-        render json: output
+        render json: {reviews: output, name: params[:app]}
     end
 
 end
