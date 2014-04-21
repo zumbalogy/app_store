@@ -109,6 +109,17 @@ function android_ajax(input){
     })
 }
 
+
+function render_apple_ul(){
+    for (var i = 0; i < apple_array.length; i++){
+        app = apple_array[i]
+        ul = $('<ul>')
+        ul.append('<li><h4>' + app.trackName + '</h4></li>')
+        $('#apple-reviews').append(ul)
+    }
+}
+
+
 $('#form').on('submit', function(event){
     event.preventDefault()
     var input = $('#input').val()
@@ -121,5 +132,6 @@ $('#form').on('submit', function(event){
     setTimeout(function(){
         apple_reviews_clean()
         splice_android()
+        render_apple_ul()
     }, 4500)
 })
