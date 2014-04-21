@@ -130,16 +130,76 @@ function render_apple_ul(){
         table.append('<th>Version</th>')
         table.append('<th>Stars</th>')
         table.append('<th>Review</th>')
+
+        var word_count = {}
+
         for (var x = 1; x < app.reviews.length; x++){
+
+            var version = app.reviews[x]['im:version'].label
+            var content = app.reviews[x].content.label
+            word_count[version] = word_count[version] || {}
+            this_count = word_count[version]
+            word_count[version] = {
+                error: (this_count.error || 0) + (content.search(/error/i) > -1 ? 1 : 0),
+                bug: (this_count.bug || 0) + (content.search(/bug/i) > -1 ? 1 : 0),
+                crash: (this_count.crash || 0) + (content.search(/crash/i) > -1 ? 1 : 0),
+                broke: (this_count.broke || 0) + (content.search(/broke/i) > -1 ? 1 : 0),
+                break: (this_count.break || 0) + (content.search(/break/i) > -1 ? 1 : 0),
+                fix: (this_count.fix || 0) + (content.search(/fix/i) > -1 ? 1 : 0),
+                slow: (this_count.slow || 0) + (content.search(/slow/i) > -1 ? 1 : 0),
+                freeze: (this_count.freeze || 0) + (content.search(/freeze/i) > -1 ? 1 : 0),
+                froze: (this_count.froze || 0) + (content.search(/froze/i) > -1 ? 1 : 0),
+                uninstall: (this_count.uninstall || 0) + (content.search(/uninstall/i) > -1 ? 1 : 0),
+                terrible: (this_count.terrible || 0) + (content.search(/terrible/i) > -1 ? 1 : 0),
+                bad: (this_count.bad || 0) + (content.search(/bad/i) > -1 ? 1 : 0),
+                worst: (this_count.worst || 0) + (content.search(/worst/i) > -1 ? 1 : 0),
+                worse: (this_count.worse || 0) + (content.search(/worse/i) > -1 ? 1 : 0),
+                hate: (this_count.hate || 0) + (content.search(/hate/i) > -1 ? 1 : 0),
+                suck: (this_count.suck || 0) + (content.search(/suck/i) > -1 ? 1 : 0)
+            }
+
             var tr = $('<tr>')
             tr.append('<td>' + app.reviews[x]['im:version'].label + '</td>')
             tr.append($('<td>' + app.reviews[x]['im:rating'].label + '</td>').attr('style', 'color: rgba(' + ((5 - app.reviews[x]['im:rating'].label) * 50) + ',0,0,1);'))
-            tr.append('<td>' + app.reviews[x].content.label + '</td>')
+            tr.append('<td>' + content + '</td>')
             table.append(tr)
         }
 
+        var word_table = $('<table>')
+        word_table.append('<th>Version</th><th>Error</th><th>Bug</th><th>Crash</th><th>Broke</th><th>Break</th><th>Fix</th><th>Slow</th><th>Freeze</th><th>Froze</th><th>Uninstall</th><th>Terrible</th><th>Bad</th><th>Worst</th><th>Worse</th><th>Hate</th><th>Suck</th>')
+
+        for (var key in word_count){
+            var tr = $('<tr>')
+            var obj = word_count[key]
+            tr.append('<td>' + key + '</td>')
+            tr.append('<td>' + obj.error + '</td>')
+            tr.append('<td>' + obj.bug + '</td>')
+            tr.append('<td>' + obj.crash + '</td>')
+            tr.append('<td>' + obj.broke + '</td>')
+            tr.append('<td>' + obj.break + '</td>')
+            tr.append('<td>' + obj.fix + '</td>')
+            tr.append('<td>' + obj.slow + '</td>')
+            tr.append('<td>' + obj.freeze + '</td>')
+            tr.append('<td>' + obj.froze + '</td>')
+            tr.append('<td>' + obj.uninstall + '</td>')
+            tr.append('<td>' + obj.terrible + '</td>')
+            tr.append('<td>' + obj.bad + '</td>')
+            tr.append('<td>' + obj.worst + '</td>')
+            tr.append('<td>' + obj.worse + '</td>')
+            tr.append('<td>' + obj.hate + '</td>')
+            tr.append('<td>' + obj.suck + '</td>')
+            word_table.append(tr)
+        }
+
+        ul.append(word_table)
         ul.append(table)
         $('#apple-reviews').append(ul)
+        var trs = word_table.children('tbody').children()
+        for (var z = 0; z < trs.length; z++){
+            $.each($(trs[z]).children(), function(index, value){
+                $(value).attr('style', 'color: rgba(0,0,0,' + $(value).text() + ');')
+            })
+        }
         $('#apple-reviews').append('<hr/>')
     }
 }
