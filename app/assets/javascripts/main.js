@@ -119,6 +119,7 @@ function render_apple_ul(){
         var ul = $('<ul>')
         ul.append('<li><h4>' + app.trackName + '</h4></li>')
         ul.append('<li> By: ' + app.artistName + '</li>')
+        ul.append('<li> Current Version: ' + app.version + '</li>')
         ul.append('<li> Stars: ' + app.averageUserRating + '</li>')
         ul.append('<li> Current Version Stars: ' + app.averageUserRatingForCurrentVersion + '</li>')
         ul.append('<li> Rating Count: ' + app.userRatingCount + '</li>')
@@ -126,9 +127,13 @@ function render_apple_ul(){
         ul.append('<li> Price: ' + app.price + '</li>')
 
         var table = $('<table>')
+        table.append('<th>Version</th>')
+        table.append('<th>Stars</th>')
+        table.append('<th>Review</th>')
         for (var x = 1; x < app.reviews.length; x++){
             var tr = $('<tr>')
             tr.append('<td>' + app.reviews[x]['im:version'].label + '</td>')
+            tr.append($('<td>' + app.reviews[x]['im:rating'].label + '</td>').attr('style', 'color: rgba(' + ((5 - app.reviews[x]['im:rating'].label) * 50) + ',0,0,1);'))
             tr.append('<td>' + app.reviews[x].content.label + '</td>')
             table.append(tr)
         }
