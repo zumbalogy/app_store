@@ -212,10 +212,10 @@ $('#form').on('submit', function(event){
     setTimeout(function(){
         get_apple_reviews()
         get_android_reviews()
-    }, 3500)
+    }, 4900)
     setTimeout(function(){
         apple_reviews_clean()
         splice_android()
         render_apple_ul()
-    }, 5500)
+    }, 8100)
 })
