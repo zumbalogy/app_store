@@ -46,15 +46,14 @@ function render_android_array(){
     }
 }
 
-var apple_reviews = []
 var android_reviews = []
 
 function get_apple_reviews(){
     for (var i = 0; i < apple_array.length; i++){
         app = apple_array[i]
-        apple_reviews.push($.ajax({
+        apple_array[i].reviews = $.ajax({
             url: "https://itunes.apple.com/rss/customerreviews/id=" + app.trackId + "/json"
-        }))
+        })
     }
 }
 
@@ -64,20 +63,17 @@ function get_android_reviews(){
         $.ajax({
             url: "/android_review/" + app.package_name,
             success: function(data){
-                for (var i = 0; i < data.length; i++){
-                    android_reviews.push(data[i])
-                }
+                android_reviews.push(data)
             }
         })
     }
 }
 
 function apple_reviews_clean(){
-    var save = []
-    for (var i = 0; i < apple_reviews.length; i++){
-        save.push(JSON.parse(apple_reviews[i].responseText).feed)
+    for (var i = 0; i < apple_array.length; i++){
+        var app = apple_array[i]
+        app.reviews = JSON.parse(app.reviews.responseText).feed.entry
     }
-    apple_reviews = save
 }
 
 function apple_ajax(input){
