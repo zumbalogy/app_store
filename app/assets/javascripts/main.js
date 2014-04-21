@@ -115,8 +115,8 @@ function android_ajax(input){
 function render_apple_ul(){
     $('#apple-reviews').html('')
     for (var i = 0; i < apple_array.length; i++){
-        app = apple_array[i]
-        ul = $('<ul>')
+        var app = apple_array[i]
+        var ul = $('<ul>')
         ul.append('<li><h4>' + app.trackName + '</h4></li>')
         ul.append('<li> By: ' + app.artistName + '</li>')
         ul.append('<li> Stars: ' + app.averageUserRating + '</li>')
@@ -124,6 +124,16 @@ function render_apple_ul(){
         ul.append('<li> Rating Count: ' + app.userRatingCount + '</li>')
         ul.append('<li> Current Version Rating Count: ' + app.userRatingCountForCurrentVersion + '</li>')
         ul.append('<li> Price: ' + app.price + '</li>')
+
+        var table = $('<table>')
+        for (var x = 1; x < app.reviews.length; x++){
+            var tr = $('<tr>')
+            tr.append('<td>' + app.reviews[x]['im:version'].label + '</td>')
+            tr.append('<td>' + app.reviews[x].content.label + '</td>')
+            table.append(tr)
+        }
+
+        ul.append(table)
         $('#apple-reviews').append(ul)
         $('#apple-reviews').append('<hr/>')
     }
