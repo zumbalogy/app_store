@@ -64,7 +64,9 @@ function get_android_reviews(){
         $.ajax({
             url: "/android_review/" + app.package_name,
             success: function(data){
-                android_reviews.push(data)
+                for (var i = 0; i < data.length; i++){
+                    android_reviews.push(data[i])
+                }
             }
         })
     }
@@ -73,7 +75,7 @@ function get_android_reviews(){
 function apple_reviews_clean(){
     var save = []
     for (var i = 0; i < apple_reviews.length; i++){
-        save.push(JSON.parse(apple_reviews[i].responseText).feed.entry)
+        save.push(JSON.parse(apple_reviews[i].responseText).feed)
     }
     apple_reviews = save
 }
