@@ -105,8 +105,8 @@ $('#form').on('submit', function(event){
     android_ajax(input)
     setTimeout(function(){
         get_apple_reviews()
-    }, 500)
+    }, 700)
     setTimeout(function(){
         apple_reviews_clean()
-    }, 1500)
+    }, 1700)
 })

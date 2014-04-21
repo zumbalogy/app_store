@@ -4,6 +4,7 @@ class MainController < ApplicationController
     end
 
     def android_review
+        MarketBot::Android::App.new('com.king.candycrushsaga').update
     end
 
 end
