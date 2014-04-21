@@ -1,7 +1,7 @@
 var apple_array;
 var android_array;
 
-var apple_table_head = '<thead><th>Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Price</th></thead>'
+var apple_table_head = '<thead><th>Stars</th><th>Current Version Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Price</th></thead>'
 var android_table_head = '<thead><th>Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Price</th><th>Downloads</th></thead>'
 
 function init_apple(data){
@@ -21,6 +21,7 @@ function render_apple_array(){
         tr = $('<tr>')
         tr.attr('id', "" + app.trackId)
         tr.append("<td>" + app.averageUserRating + '</td>')
+        tr.append("<td>" + app.averageUserRatingForCurrentVersion + '</td>')
         tr.append("<td>" + app.trackName + '</td>')
         tr.append("<td>" + app.artistName + '</td>')
         tr.append("<td>" + app.userRatingCount + '</td>')
@@ -115,7 +116,10 @@ function render_apple_ul(){
         app = apple_array[i]
         ul = $('<ul>')
         ul.append('<li><h4>' + app.trackName + '</h4></li>')
+        ul.append('<li>' + app.trackName + '</li>')
         $('#apple-reviews').append(ul)
+        $('#apple-reviews').append('<hr/>')
+
     }
 }
 
