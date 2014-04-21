@@ -111,7 +111,6 @@ function android_ajax(input){
     })
 }
 
-
 function render_apple_ul(){
     $('#apple-reviews').html('')
     for (var i = 0; i < apple_array.length; i++){
@@ -175,11 +174,12 @@ function render_apple_ul(){
         word_table.append('<th>Version</th><th>Review Count</th><th>Avg Stars</th><th>Error</th><th>Bug</th><th>Crash</th><th>Broke</th><th>Break</th><th>Fix</th><th>Slow</th><th>Freeze</th><th>Froze</th><th>Uninstall</th><th>Terrible</th><th>Bad</th><th>Worst</th><th>Worse</th><th>Hate</th><th>Suck</th>')
 
         for (var key in word_count){
-            var tr = $('<tr>')
             var obj = word_count[key]
+            var avg_star = Math.round((obj.stars / obj.count) * 1000) / 1000
+            var tr = $('<tr>')
             tr.append('<td>' + key           + '</td>')
             tr.append('<td>' + obj.count     + '</td>')
-            tr.append('<td>' + (Math.round((obj.stars / obj.count) * 1000) / 1000) + '</td>')
+            tr.append('<td>' + avg_star      + '</td>')
             tr.append('<td>' + obj.error     + '</td>')
             tr.append('<td>' + obj.bug       + '</td>')
             tr.append('<td>' + obj.crash     + '</td>')
