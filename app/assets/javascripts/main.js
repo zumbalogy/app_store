@@ -223,6 +223,23 @@ function render_apple_ul(){
     }
 }
 
+function render_android_ul(){
+    var ul = $('#android-reviews')
+    ul.html('')
+    $.each(android_array, function(index, value){
+        var ul2 = $('<ul>')
+        ul2.append('<li><h4>' + value.title + '</h4></li>')
+        ul2.append('<li>By: ' + value.developer + '</li>')
+        ul2.append('<li>Version: ' + value.version + '</li>')
+        ul2.append('<li>Downloads: ' + value.downloads + '</li>')
+        ul2.append('<li>Rating: ' + value.rating + '</li>')
+        ul2.append('<li>Ratings: ' + value.number_ratings + '</li>')
+        ul2.append('<li>Price: ' + value.price_numeric + '</li>')
+
+        ul.append(ul2)
+    })
+}
+
 $('#form').on('submit', function(event){
     event.preventDefault()
     var input = $('#input').val()
@@ -236,5 +253,6 @@ $('#form').on('submit', function(event){
         apple_reviews_clean()
         splice_android()
         render_apple_ul()
+        render_android_ul()
     }, 8100)
 })
