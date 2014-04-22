@@ -258,7 +258,6 @@ function render_android_ul(){
             hate: 0,
             suck: 0
         }
-        var review_count;
         $.each(value.reviews, function(idx, val){
             for (var key in word_count){
                 if (val.review.search(new RegExp(key, "i")) > -1) {
@@ -269,10 +268,9 @@ function render_android_ul(){
             tr.append('<td>' + val.time + '</td>')
             tr.append('<td>' + val.review + '</td>')
             table_one.append(tr)
-            review_count = idx
         })
         var count_tr = $('<tr>')
-        count_tr.append('<td>' + review_count + '</td>') 
+        count_tr.append('<td>' + value.reviews.length + '</td>') 
         count_tr.append('<td>' + word_count.error + '</td>')
         count_tr.append('<td>' + word_count.bug + '</td>') 
         count_tr.append('<td>' + word_count.crash + '</td>') 
