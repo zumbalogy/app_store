@@ -1,3 +1,5 @@
+// this is called after a few second timeout by the render_uls funciton
+// after button press
 function render_android_ul(){
     var ul = $('#android-reviews')
     ul.html('')

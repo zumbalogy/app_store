@@ -1,3 +1,5 @@
+// this is called after a few second timeout by the render_uls funciton
+// after button press
 function render_apple_ul(){
     $('#apple-reviews').html('')
     for (var i = 0; i < apple_array.length; i++){

@@ -4,6 +4,8 @@ class MainController < ApplicationController
     end
 
     def android_review
+        # hit by get_android_reviews() in main.js
+        # get_android_reviews is called after button press
         app = MarketBot::Android::App.new(params[:app])
         output = []
         begin
@@ -17,6 +19,7 @@ class MainController < ApplicationController
                 }
             end
         rescue
+            # sometimes there are no reviews
         end
         render json: {reviews: output, name: params[:app]}
     end
