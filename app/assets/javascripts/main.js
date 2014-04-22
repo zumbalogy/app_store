@@ -6,7 +6,7 @@ var android_array;
 var apple_table_head = '<thead><th>Stars</th><th>Current Version Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Current Count</th><th>Price</th></thead>'
 var android_table_head = '<thead><th>Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Price</th><th>Downloads</th></thead>'
 
-//these init functions are called on form submit
+// these init functions are called on form submit
 function init_apple(data){
     apple_array = data.results
     render_apple_array()
@@ -150,6 +150,8 @@ function delete_android(input){
     render_android_array()
 }
 
+// this is the main mission command, and it all starts once user
+// submits query
 $('#form').on('submit', function(event){
     event.preventDefault()
     var input = $('#input').val()
