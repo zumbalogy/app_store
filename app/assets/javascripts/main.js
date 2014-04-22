@@ -1,9 +1,12 @@
+// these arrays will store the app objects, which have some data,
+// and later, the review data gets attached to its respective app object
 var apple_array;
 var android_array;
 
 var apple_table_head = '<thead><th>Stars</th><th>Current Version Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Current Count</th><th>Price</th></thead>'
 var android_table_head = '<thead><th>Stars</th><th>Title</th><th>Creator</th><th>Rating Count</th><th>Price</th><th>Downloads</th></thead>'
 
+//these init functions are called on form submit
 function init_apple(data){
     apple_array = data.results
     render_apple_array()
@@ -14,6 +17,7 @@ function init_android(data){
     render_android_array()
 }
 
+// these just render the top tables
 function render_apple_array(){
     $('#results').html(apple_table_head)
     for (var i = 0; i < apple_array.length; i++){
@@ -59,6 +63,8 @@ function get_apple_reviews(){
     }
 }
 
+//send android app to rails, where an API is called
+//and HTML gets parsed
 var android_reviews = []
 
 function get_android_reviews(){
@@ -74,6 +80,7 @@ function get_android_reviews(){
     }
 }
 
+// tie app objects in android array with respective review arrays
 function splice_android(){
     for (var x = 0; x < android_reviews.length; x++){
         for (var y = 0; y < android_array.length; y++){
@@ -84,6 +91,7 @@ function splice_android(){
     }
 }
 
+// gets rid of some misc data in the apple reviews
 function apple_reviews_clean(){
     for (var i = 0; i < apple_array.length; i++){
         app = apple_array[i]
@@ -91,6 +99,7 @@ function apple_reviews_clean(){
     }
 }
 
+// these are the initial ajax calls to get the apps for a query
 function apple_ajax(input){
     $.ajax({
         url: "https://itunes.apple.com/search?term=" + input + "&country=us&entity=software",
@@ -113,11 +122,16 @@ function android_ajax(input){
     })
 }
 
+// these render the reviews and all. functions found in 
+// respective files
 function render_uls(){
     render_apple_ul()
     render_android_ul()
 }
 
+// these functions allow user to remove an app before 
+// rendering it's reviews (and if app is deleted before 4.5s mark
+// , the app does not even bother getting its reviews)
 function delete_apple(input){
     for (var i = 0; i < apple_array.length; i++){
         if (apple_array[i].trackId === input){
