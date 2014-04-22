@@ -43,3 +43,6 @@ end
 gem 'rails_12factor', group: :production
 gem 'nokogiri'
 gem 'market_bot'
+
+gem 'mongoid', '~> 4.0.0.beta1', github: 'mongoid/mongoid'
+gem 'bson_ext'

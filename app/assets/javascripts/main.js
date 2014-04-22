@@ -155,6 +155,10 @@ function delete_android(input){
     render_android_array()
 }
 
+function save_apple(input){
+    
+}
+
 // this is the main mission command, and it all starts once user
 // submits query
 $('#form').on('submit', function(event){
