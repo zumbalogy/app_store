@@ -45,6 +45,7 @@ function render_android_array(){
         tr.append("<td>" + app.number_ratings + '</td>')
         tr.append("<td>" + app.price_numeric + '</td>')
         tr.append("<td>" + app.downloads + '</td>')
+        tr.append('<button onclick=delete_android("' + app.package_name.replace(/\./g, '') + '")>Delete</button>')
         $('#android-results').append(tr)
     }
 }
@@ -112,10 +113,6 @@ function android_ajax(input){
     })
 }
 
-function render_render_btn(){
-    $('#render_button').append('<button onclick="render_uls()">Render Reviews</button>')
-}
-
 function render_uls(){
     render_apple_ul()
     render_android_ul()
@@ -130,6 +127,15 @@ function delete_apple(input){
     render_apple_array()
 }
 
+function delete_android(input){
+    for (var i = 0; i < android_array.length; i++){
+        if (android_array[i].package_name.replace(/\./g, '') === input){
+            android_array.splice(i, i+1)
+        }
+    }
+    render_android_array()
+}
+
 $('#form').on('submit', function(event){
     event.preventDefault()
     var input = $('#input').val()
@@ -142,6 +148,6 @@ $('#form').on('submit', function(event){
     setTimeout(function(){
         apple_reviews_clean()
         splice_android()
-        render_render_btn()
+        $('#render_button').append('<button onclick="render_uls()">Render Reviews</button>')
     }, 8100)
 })
