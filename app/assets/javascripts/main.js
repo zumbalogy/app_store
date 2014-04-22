@@ -123,15 +123,20 @@ function android_ajax(input){
 }
 
 // these render the reviews and all. functions found in 
-// respective files
+// respective files, after getting and cleaning reviews
 function render_uls(){
-    render_apple_ul()
-    render_android_ul()
+    get_apple_reviews()
+    get_android_reviews()
+    setTimeout(function(){
+        apple_reviews_clean()
+        splice_android()
+        render_apple_ul()
+        render_android_ul()
+    }, 5000)
 }
 
 // these functions allow user to remove an app before 
-// rendering it's reviews (and if app is deleted before 4.5s mark
-// , the app does not even bother getting its reviews)
+// rendering it's reviews
 function delete_apple(input){
     for (var i = 0; i < apple_array.length; i++){
         if (apple_array[i].trackId === input){
@@ -158,12 +163,7 @@ $('#form').on('submit', function(event){
     apple_ajax(input)
     android_ajax(input)
     setTimeout(function(){
-        get_apple_reviews()
-        get_android_reviews()
-    }, 4500)
-    setTimeout(function(){
-        apple_reviews_clean()
-        splice_android()
         $('#render_button').append('<button onclick="render_uls()">Render Reviews</button>')
-    }, 8100)
+    }, 4000)
+   
 })
