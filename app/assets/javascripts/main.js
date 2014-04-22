@@ -15,7 +15,6 @@ function init_android(data){
 }
 
 function render_apple_array(){
-    console.log(apple_array)
     $('#results').html(apple_table_head)
     for (var i = 0; i < apple_array.length; i++){
         var app = apple_array[i]
@@ -114,10 +113,7 @@ function android_ajax(input){
 }
 
 function render_render_btn(){
-    var save = $('#input').val()
-    $('#form').html("<input id='input' autofocustype='text' placeholder='app search'/>")
-    $('#input').val(save)
-    $('#form').append('<button onclick="render_uls()">Render Reviews</button>')
+    $('#render_button').append('<button onclick="render_uls()">Render Reviews</button>')
 }
 
 function render_uls(){
