@@ -10,5 +10,15 @@ class AppleApp
     field :userRatingCountForCurrentVersion, type: Integer
     field :price, type: Float
     field :version, type: String
-    field :reviews, type: Array 
+    field :reviews, type: Array
+
+    def self.save input
+        #if already exists
+            #re-write, but merge reviews array
+            # # this kinda looses the info of average ratings over time though
+            # # so maybe that could be an array of objects with rating and timestamp
+        # else
+            #write a new one compelely
+        # end 
+    end
 end
