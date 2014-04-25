@@ -13,12 +13,22 @@ class AppleApp
     field :reviews, type: Array
 
     def self.save input
-        #if already exists
-            #re-write, but merge reviews array
-            # # this kinda looses the info of average ratings over time though
-            # # so maybe that could be an array of objects with rating and timestamp
-        # else
-            #write a new one compelely
-        # end 
+        app = AppleApp.where(trackId: input[:trackId])
+        if app
+            app.update_attributes(
+                averageUserRating: input[:averageUserRating],
+                averageUserRatingForCurrentVersion: input[:averageUserRatingForCurrentVersion],
+                userRatingCount: input[:userRatingCount],
+                userRatingCountForCurrentVersion: input[:userRatingCountForCurrentVersion],
+                price: input[:price],
+                version: input[:version],
+                reviews: (app.reviews | input[:reviews])
+                    #in theory, if we are getting all reviews,
+                    #we could just drop old ones, since welle still have them
+            )
+        else
+            app = AppleApp.create(input) #might want to sanitize though
+        end 
+        return app
     end
 end

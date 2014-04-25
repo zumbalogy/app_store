@@ -1,5 +1,6 @@
 class AndroidApp
     include Mongoid::Document
+    include Mongoid::Timestamps
     field :package_name, type: String
     field :rating, type: Float
     field :title, type: String
@@ -10,13 +11,21 @@ class AndroidApp
     field :version, type: String
 
     def self.save input
-        #if already exists
-            #re-write, but merge reviews array
-            # # this kinda looses the info of average ratings over time though
-            # # so maybe that could be an array of objects with rating and timestamp
-        # else
-            #write a new one compelely
-        # end 
+        app = AndroidApp.where(package_name: input[:package_name])
+        if app
+            app.update_attributes(
+                rating: input[:rating],
+                number_ratings: input[:number_ratings],
+                price_numeric: input[:price_numeric],
+                version: input[:version],
+                reviews: (app.reviews | input[:reviews])
+                    #in theory, if we are getting all reviews,
+                    #we could just drop old ones, since welle still have them
+            )
+        else
+            app = AndroidApp.create(input) #might want to sanitize though
+        end 
+        return app
     end
-    
+
 end
